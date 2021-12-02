@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-navbar>
+    <ion-title>RF-Relay</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left (click)="scan()" *ngIf="!isScanning">
+        <ion-icon name="bluetooth"></ion-icon>
+        Scan
+      </button>
+      <button ion-button icon-left (click)="scan()" *ngIf="isScanning">
+        <ion-spinner></ion-spinner>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+      <ion-list-header>RF Modules</ion-list-header>
+      <ion-item-sliding *ngFor="let device of devices" #slidingItem>
+        <button ion-item button-left (click)="redirectToDataPage(device)">
+          <ion-icon name="radio"></ion-icon>
+          {{device.name || device.id}} ({{device.rssi}}) dBm
+        </button>
+      </ion-item-sliding>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <p>{{ statusMessage }}</p>
+  </ion-toolbar>
+</ion-footer>
