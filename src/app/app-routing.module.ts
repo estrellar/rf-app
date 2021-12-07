@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'data-page',
+    loadChildren: () => import('./data-page/data-page.module').then( m => m.DataPagePageModule)
+  },
 ];
 
 @NgModule({
