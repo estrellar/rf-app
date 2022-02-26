@@ -149,13 +149,23 @@ export class HomePage {
       this.setStatus("Password");
       this.peripheral = peripheral;
     });
-    //this.peripheral.data = this.ble.startNotification(this.peripheral.id)
+    
+    //test peripheral connection at this scope
+    //console.log("PERIPHERAL:", peripheral);
+    // this.peripheral.data = this.ble.startNotification(peripheral.id,  '1815', '2A58').subscribe(
+    //   rx => { console.log(rx); },
+    //   error => { console.log(error); }
+    // )
 
-    this.navCtrl.navigateForward('DataPage', {
-      state:{
-        peripheral: this.peripheral
+    let navigationExtras: NavigationExtras  = {
+      state:
+      {
+        peripheral: this.peripheral,
+        ble: this.ble
       }
-    });
+    };
+
+     this.navCtrl.navigateForward('data-page', navigationExtras);
   }
 
   public onDisconnected(peripheral){
@@ -164,7 +174,7 @@ export class HomePage {
       buttons: ["OK"]
     });
     //alert.present();
-    this.navCtrl.navigateForward('DevicePage');
+    this.navCtrl.navigateForward('data-page');
   }
 
   setStatus(message){
